@@ -1,14 +1,15 @@
 // query selector variables go here 👇
 var image = document.querySelector('.poster-img');
 var savePoster = document.querySelector('.save-poster');
-var showSavePoster = document.querySelector('.show-saved');
-var showRandomPoster = document.querySelector('.show-random');
+var showSavePosterButton = document.querySelector('.show-saved');
+var showRandomPosterButton = document.querySelector('.show-random');
 var makePoster = document.querySelector('.show-form');
 var posterTitle = document.querySelector('.poster-title');
 var posterQuote = document.querySelector('.poster-quote');
 var mainPage = document.querySelector('.main-poster');
 var createOwnPoster = document.querySelector('.poster-form');
-
+var takeMeBackButton = document.querySelector('.show-main')
+var savedPosterPage = document.querySelector('.saved-posters')
 // we've provided you with some data to work with 👇
 var images = [
   "./assets/bees.jpg",
@@ -117,9 +118,20 @@ posterTitle.innerText = titles [getRandomIndex (titles)]
 posterQuote.innerText = quotes [getRandomIndex (quotes)]
 // functions and event handlers go here 👇
 // (we've provided two to get you started)!
-showRandomPoster.addEventListener('click', changePoster)
+showRandomPosterButton.addEventListener('click', changePoster)
 makePoster.addEventListener('click', makeYourOwnPoster)
+takeMeBackButton.addEventListener('click', takeMeBackToMain)
+showSavePosterButton.addEventListener('click', mainPageToSavedPosters)
 
+function mainPageToSavedPosters() {
+  mainPage.classList.add('hidden');
+  savedPosterPage.classList.remove('hidden')
+}
+
+function takeMeBackToMain() {
+  createOwnPoster.classList.add('hidden')
+  mainPage.classList.remove('hidden')
+}
 
 function makeYourOwnPoster() {
   mainPage.classList.add('hidden');
