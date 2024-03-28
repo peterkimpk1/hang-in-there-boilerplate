@@ -10,6 +10,7 @@ var mainPage = document.querySelector('.main-poster');
 var createOwnPoster = document.querySelector('.poster-form');
 var takeMeBackButton = document.querySelector('.show-main')
 var savedPosterPage = document.querySelector('.saved-posters')
+var backToMainButton = document.querySelector('.back-to-main')
 // we've provided you with some data to work with 👇
 var images = [
   "./assets/bees.jpg",
@@ -110,8 +111,6 @@ var quotes = [
 ];
 var savedPosters = [];
 var currentPoster;
-//When the page loads, we should see a poster with a randomly selected image, title, and quote
-//Every time the user clicks the Show Random Poster button, a new random poster is displayed.
 // event listeners go here 👇
 image.src = images[getRandomIndex(images)]
 posterTitle.innerText = titles [getRandomIndex (titles)]
@@ -122,6 +121,12 @@ showRandomPosterButton.addEventListener('click', changePoster)
 makePoster.addEventListener('click', makeYourOwnPoster)
 takeMeBackButton.addEventListener('click', takeMeBackToMain)
 showSavePosterButton.addEventListener('click', mainPageToSavedPosters)
+backToMainButton.addEventListener('click', savedToMain)
+
+function savedToMain() {
+  savedPosterPage.classList.add('hidden');
+  mainPage.classList.remove('hidden');
+}
 
 function mainPageToSavedPosters() {
   mainPage.classList.add('hidden');
