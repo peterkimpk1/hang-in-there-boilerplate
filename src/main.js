@@ -1,14 +1,16 @@
 // query selector variables go here 👇
 var image = document.querySelector('.poster-img');
 var savePoster = document.querySelector('.save-poster');
-var showSavePoster = document.querySelector('.show-saved');
-var showRandomPoster = document.querySelector('.show-random');
+var showSavePosterButton = document.querySelector('.show-saved');
+var showRandomPosterButton = document.querySelector('.show-random');
 var makePoster = document.querySelector('.show-form');
 var posterTitle = document.querySelector('.poster-title');
 var posterQuote = document.querySelector('.poster-quote');
 var mainPage = document.querySelector('.main-poster');
 var createOwnPoster = document.querySelector('.poster-form');
-
+var takeMeBackButton = document.querySelector('.show-main')
+var savedPosterPage = document.querySelector('.saved-posters')
+var backToMainButton = document.querySelector('.back-to-main')
 // we've provided you with some data to work with 👇
 var images = [
   "./assets/bees.jpg",
@@ -109,17 +111,32 @@ var quotes = [
 ];
 var savedPosters = [];
 var currentPoster;
-//When the page loads, we should see a poster with a randomly selected image, title, and quote
-//Every time the user clicks the Show Random Poster button, a new random poster is displayed.
 // event listeners go here 👇
 image.src = images[getRandomIndex(images)]
 posterTitle.innerText = titles [getRandomIndex (titles)]
 posterQuote.innerText = quotes [getRandomIndex (quotes)]
 // functions and event handlers go here 👇
 // (we've provided two to get you started)!
-showRandomPoster.addEventListener('click', changePoster)
+showRandomPosterButton.addEventListener('click', changePoster)
 makePoster.addEventListener('click', makeYourOwnPoster)
+takeMeBackButton.addEventListener('click', takeMeBackToMain)
+showSavePosterButton.addEventListener('click', mainPageToSavedPosters)
+backToMainButton.addEventListener('click', savedToMain)
 
+function savedToMain() {
+  savedPosterPage.classList.add('hidden');
+  mainPage.classList.remove('hidden');
+}
+
+function mainPageToSavedPosters() {
+  mainPage.classList.add('hidden');
+  savedPosterPage.classList.remove('hidden')
+}
+
+function takeMeBackToMain() {
+  createOwnPoster.classList.add('hidden')
+  mainPage.classList.remove('hidden')
+}
 
 function makeYourOwnPoster() {
   mainPage.classList.add('hidden');
