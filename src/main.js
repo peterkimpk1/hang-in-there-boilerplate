@@ -15,6 +15,8 @@ var inputURL = document.querySelector('#poster-image-url')
 var inputTitle = document.querySelector('#poster-title')
 var inputQuote = document.querySelector('#poster-quote')
 var showMyPosterButton = document.querySelector('.make-poster')
+var savedPostersGrid = document.querySelector('.saved-posters-grid')
+
 
 // we've provided you with some data to work with 👇
 var images = [
@@ -127,6 +129,18 @@ takeMeBackButton.addEventListener('click', takeMeBackToMain)
 showSavePosterButton.addEventListener('click', mainPageToSavedPosters)
 backToMainButton.addEventListener('click', savedToMain)
 showMyPosterButton.addEventListener('click', showMyPoster, false)
+savePosterButton.addEventListener('click', savePoster)
+
+function savePoster() {
+  var savedPoster = createPoster(image.src, posterTitle.innerText, posterQuote.innerText);
+  savedPosters.push(savedPoster);
+  savedPostersGrid.innerHTML += `
+    <article class="mini-poster">
+      <img id="mini-poster img" src="${image.src}"/>
+      <div id="mini-poster h2">${posterTitle.innerText}</div>
+      <div id="poster-quote">${posterQuote.innerText}</div>
+    </article>`
+}
 
 function showMyPoster(event) {
   event.preventDefault();
