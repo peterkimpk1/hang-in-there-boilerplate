@@ -131,9 +131,6 @@ backToMainButton.addEventListener('click', savedToMain)
 showMyPosterButton.addEventListener('click', showMyPoster)
 savePosterButton.addEventListener('click', savePoster)
 
-
-
-
 function savePoster() {
   var savedPoster = createPoster(image.src, posterTitle.innerText, posterQuote.innerText);
   savedPosters.push(savedPoster);
@@ -153,11 +150,11 @@ function showPostersGrid() {
 
 function toggleButton() {
   for (i = 0; i < savedPosters.length; i++) {
-    if (savedPosters[i].includes(currentPoster)) {
+    if (savedPosters[i] === (currentPoster)) {
       savePosterButton.disabled = true;
     }
-  } 
-  savePosterButton.disabled = false;
+  }
+  savePosterButton.disabled = false; 
 }
 
 function showMyPoster(event) {
