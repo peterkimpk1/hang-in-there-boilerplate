@@ -129,7 +129,7 @@ takeMeBackButton.addEventListener('click', takeMeBackToMain)
 showSavePosterButton.addEventListener('click', mainPageToSavedPosters)
 backToMainButton.addEventListener('click', savedToMain)
 showMyPosterButton.addEventListener('click', showMyPoster, false)
-savePosterButton.addEventListener('click', savePoster)
+savePosterButton.addEventListener('click', savePoster )//{once: true}
 
 function savePoster() {
   var savedPoster = createPoster(image.src, posterTitle.innerText, posterQuote.innerText);
@@ -140,6 +140,13 @@ function savePoster() {
       <div id="mini-poster h2">${posterTitle.innerText}</div>
       <div id="poster-quote">${posterQuote.innerText}</div>
     </article>`
+  for (let i = 0; i < savedPosters.length; i++) {
+    if (savedPosters[i].includes (savedPosters)) {
+   //savePosterButton.removeEventListener('click', savePoster) 
+   savePosterButton.onclick = null
+   savePosterButton.disabled = true
+  }
+}
 }
 
 function showMyPoster(event) {
