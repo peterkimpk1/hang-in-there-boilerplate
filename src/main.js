@@ -128,25 +128,36 @@ makePosterButton.addEventListener('click', makeYourOwnPoster)
 takeMeBackButton.addEventListener('click', takeMeBackToMain)
 showSavePosterButton.addEventListener('click', mainPageToSavedPosters)
 backToMainButton.addEventListener('click', savedToMain)
-showMyPosterButton.addEventListener('click', showMyPoster, false)
-savePosterButton.addEventListener('click', savePoster )//{once: true}
+showMyPosterButton.addEventListener('click', showMyPoster)
+savePosterButton.addEventListener('click', savePoster)
+
+
+
 
 function savePoster() {
   var savedPoster = createPoster(image.src, posterTitle.innerText, posterQuote.innerText);
   savedPosters.push(savedPoster);
+  showPostersGrid();
+  currentPoster = savedPoster;
+  toggleButton();
+}
+
+function showPostersGrid() {
   savedPostersGrid.innerHTML += `
     <article class="mini-poster">
       <img id="mini-poster img" src="${image.src}"/>
       <div id="mini-poster h2">${posterTitle.innerText}</div>
       <div id="poster-quote">${posterQuote.innerText}</div>
     </article>`
-  for (let i = 0; i < savedPosters.length; i++) {
-    if (savedPosters[i].includes (savedPosters)) {
-   //savePosterButton.removeEventListener('click', savePoster) 
-   savePosterButton.onclick = null
-   savePosterButton.disabled = true
-  }
 }
+
+function toggleButton() {
+  for (i = 0; i < savedPosters.length; i++) {
+    if (savedPosters[i].includes(currentPoster)) {
+      savePosterButton.disabled = true;
+    }
+  } 
+  savePosterButton.disabled = false;
 }
 
 function showMyPoster(event) {
@@ -166,9 +177,7 @@ function showMyPoster(event) {
   
   var newPoster = createPoster(inputURL.value, inputTitle.value, inputQuote.value)
     savedPosters.push(newPoster) 
-  
-  createOwnPoster.classList.add('hidden');
-  mainPage.classList.remove('hidden');
+  takeMeBackToMain();
 }
 
 function savedToMain() {
