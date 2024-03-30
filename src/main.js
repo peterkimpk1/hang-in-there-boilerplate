@@ -151,10 +151,12 @@ function showPostersGrid() {
 function toggleButton() {
   for (i = 0; i < savedPosters.length; i++) {
     if (savedPosters[i] === (currentPoster)) {
-      savePosterButton.disabled = true;
+      savePosterButton.setAttribute("disabled", "");
     }
-  }
-  savePosterButton.disabled = false; 
+    else if (savedPosters[i] !== (currentPoster)) {
+      savePosterButton.removeAttribute("disabled");
+    }
+}
 }
 
 function showMyPoster(event) {
@@ -171,9 +173,9 @@ function showMyPoster(event) {
     posterQuote.innerText = inputQuote.value
     quotes.push(inputQuote.value)
   }
-  
   var newPoster = createPoster(inputURL.value, inputTitle.value, inputQuote.value)
-    savedPosters.push(newPoster) 
+  savedPosters.push(newPoster) 
+  currentPoster = newPoster;
   takeMeBackToMain();
 }
 
@@ -210,9 +212,14 @@ function createPoster(imageURL, title, quote) {
 }
 
 function changePoster() {
- image.src = images[getRandomIndex(images)]
- posterTitle.innerText = titles [getRandomIndex (titles)];
- posterQuote.innerText = quotes [getRandomIndex (quotes)];
+ var randomImage = images[getRandomIndex(images)];
+ image.src = randomImage;
+ var randomTitle = titles [getRandomIndex (titles)];
+ posterTitle.innerText = randomTitle;
+ var randomQuote = quotes [getRandomIndex (quotes)];
+ posterQuote.innerText = randomQuote;
+ currentPoster = createPoster(randomImage, randomTitle, randomQuote);
+ toggleButton();
 }
 
 
