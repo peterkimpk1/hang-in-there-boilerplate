@@ -128,24 +128,34 @@ makePosterButton.addEventListener('click', makeYourOwnPoster)
 takeMeBackButton.addEventListener('click', takeMeBackToMain)
 showSavePosterButton.addEventListener('click', mainPageToSavedPosters)
 backToMainButton.addEventListener('click', savedToMain)
-showMyPosterButton.addEventListener('click', showMyPoster, false)
-savePosterButton.addEventListener('click', savePoster )//{once: true}
+showMyPosterButton.addEventListener('click', showMyPoster)
+savePosterButton.addEventListener('click', savePoster)
 
 function savePoster() {
   var savedPoster = createPoster(image.src, posterTitle.innerText, posterQuote.innerText);
   savedPosters.push(savedPoster);
+  showPostersGrid();
+  currentPoster = savedPoster;
+  toggleButton();
+}
+
+function showPostersGrid() {
   savedPostersGrid.innerHTML += `
     <article class="mini-poster">
       <img id="mini-poster img" src="${image.src}"/>
       <div id="mini-poster h2">${posterTitle.innerText}</div>
       <div id="poster-quote">${posterQuote.innerText}</div>
     </article>`
-  for (let i = 0; i < savedPosters.length; i++) {
-    if (savedPosters[i].includes (savedPosters)) {
-   //savePosterButton.removeEventListener('click', savePoster) 
-   savePosterButton.onclick = null
-   savePosterButton.disabled = true
-  }
+}
+
+function toggleButton() {
+  for (i = 0; i < savedPosters.length; i++) {
+    if (savedPosters[i] === (currentPoster)) {
+      savePosterButton.setAttribute("disabled", "");
+    }
+    else if (savedPosters[i] !== (currentPoster)) {
+      savePosterButton.removeAttribute("disabled");
+    }
 }
 }
 
@@ -163,12 +173,10 @@ function showMyPoster(event) {
     posterQuote.innerText = inputQuote.value
     quotes.push(inputQuote.value)
   }
-  
   var newPoster = createPoster(inputURL.value, inputTitle.value, inputQuote.value)
-    savedPosters.push(newPoster) 
-  
-  createOwnPoster.classList.add('hidden');
-  mainPage.classList.remove('hidden');
+  savedPosters.push(newPoster) 
+  currentPoster = newPoster;
+  takeMeBackToMain();
 }
 
 function savedToMain() {
@@ -204,9 +212,14 @@ function createPoster(imageURL, title, quote) {
 }
 
 function changePoster() {
- image.src = images[getRandomIndex(images)]
- posterTitle.innerText = titles [getRandomIndex (titles)];
- posterQuote.innerText = quotes [getRandomIndex (quotes)];
+ var randomImage = images[getRandomIndex(images)];
+ image.src = randomImage;
+ var randomTitle = titles [getRandomIndex (titles)];
+ posterTitle.innerText = randomTitle;
+ var randomQuote = quotes [getRandomIndex (quotes)];
+ posterQuote.innerText = randomQuote;
+ currentPoster = createPoster(randomImage, randomTitle, randomQuote);
+ toggleButton();
 }
 
 
