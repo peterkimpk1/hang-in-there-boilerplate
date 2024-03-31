@@ -130,6 +130,14 @@ showSavePosterButton.addEventListener('click', mainPageToSavedPosters)
 backToMainButton.addEventListener('click', savedToMain)
 showMyPosterButton.addEventListener('click', showMyPoster)
 savePosterButton.addEventListener('click', savePoster)
+savedPostersGrid.addEventListener('dblclick', deletePoster)
+
+function deletePoster() {
+  if (event.target.classList.contains('mini-poster')) {
+    event.target.parentNode.remove();
+  }
+  savePosterButton.removeAttribute("disabled");
+} 
 
 function savePoster() {
   var savedPoster = createPoster(image.src, posterTitle.innerText, posterQuote.innerText);
@@ -142,7 +150,7 @@ function savePoster() {
 function showPostersGrid() {
   savedPostersGrid.innerHTML += `
     <article class="mini-poster">
-      <img id="mini-poster img" src="${image.src}"/>
+      <img class="mini-poster img" src="${image.src}"/>
       <div id="mini-poster h2">${posterTitle.innerText}</div>
       <div id="poster-quote">${posterQuote.innerText}</div>
     </article>`
