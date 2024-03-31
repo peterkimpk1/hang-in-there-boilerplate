@@ -119,41 +119,37 @@ var quotes = [
 var savedPosters = [];
 var currentPoster;
 // event listeners go here 👇
-changePoster();
-
+showRandomPosterButton.addEventListener('click', changePoster);
+makePosterButton.addEventListener('click', makeYourOwnPosterPage);
+takeMeBackButton.addEventListener('click', takeMeBackToMainPage);
+showSavePosterButton.addEventListener('click', mainPageToSavedPosters);
+backToMainButton.addEventListener('click', savedToMain);
+showMyPosterButton.addEventListener('click', showMyPoster);
+savePosterButton.addEventListener('click', savePoster);
+savedPostersGrid.addEventListener('dblclick', deletePoster);
 // functions and event handlers go here 👇
-// (we've provided two to get you started)!
-showRandomPosterButton.addEventListener('click', changePoster)
-makePosterButton.addEventListener('click', makeYourOwnPoster)
-takeMeBackButton.addEventListener('click', takeMeBackToMain)
-showSavePosterButton.addEventListener('click', mainPageToSavedPosters)
-backToMainButton.addEventListener('click', savedToMain)
-showMyPosterButton.addEventListener('click', showMyPoster)
-savePosterButton.addEventListener('click', savePoster)
-savedPostersGrid.addEventListener('dblclick', deletePoster)
-
 function deletePoster() {
   if (event.target.classList.contains('mini-poster')) {
     event.target.parentNode.remove();
   }
-  savePosterButton.removeAttribute("disabled");
+  toggleButton();
 } 
 
 function savePoster() {
   var savedPoster = createPoster(image.src, posterTitle.innerText, posterQuote.innerText);
   savedPosters.push(savedPoster);
-  showPostersGrid();
+  addToSavedPostersGrid();
   currentPoster = savedPoster;
   toggleButton();
 }
 
-function showPostersGrid() {
+function addToSavedPostersGrid() {
   savedPostersGrid.innerHTML += `
     <article class="mini-poster">
       <img class="mini-poster img" src="${image.src}"/>
       <div id="mini-poster h2">${posterTitle.innerText}</div>
       <div id="poster-quote">${posterQuote.innerText}</div>
-    </article>`
+    </article>`;
 }
 
 function toggleButton() {
@@ -170,21 +166,21 @@ function toggleButton() {
 function showMyPoster(event) {
   event.preventDefault();
   if (inputURL.value !== undefined) {
-    image.src = inputURL.value
-    images.push(inputURL.value)
+    image.src = inputURL.value;
+    images.push(inputURL.value);
   }
   if (inputTitle.value !== undefined) {
-    posterTitle.innerText = inputTitle.value
-    titles.push(inputTitle.value)
+    posterTitle.innerText = inputTitle.value;
+    titles.push(inputTitle.value);
   }
   if (inputQuote.value !== undefined) {
-    posterQuote.innerText = inputQuote.value
-    quotes.push(inputQuote.value)
+    posterQuote.innerText = inputQuote.value;
+    quotes.push(inputQuote.value);
   }
-  var newPoster = createPoster(inputURL.value, inputTitle.value, inputQuote.value)
-  savedPosters.push(newPoster) 
+  var newPoster = createPoster(inputURL.value, inputTitle.value, inputQuote.value);
   currentPoster = newPoster;
-  takeMeBackToMain();
+  takeMeBackToMainPage();
+  toggleButton();
 }
 
 function savedToMain() {
@@ -197,12 +193,12 @@ function mainPageToSavedPosters() {
   savedPosterPage.classList.remove('hidden');
 }
 
-function takeMeBackToMain() {
+function takeMeBackToMainPage() {
   createOwnPoster.classList.add('hidden');
   mainPage.classList.remove('hidden');
 }
 
-function makeYourOwnPoster() {
+function makeYourOwnPosterPage() {
   mainPage.classList.add('hidden');
   createOwnPoster.classList.remove('hidden');
 }
@@ -220,14 +216,14 @@ function createPoster(imageURL, title, quote) {
 }
 
 function changePoster() {
- var randomImage = images[getRandomIndex(images)];
- image.src = randomImage;
- var randomTitle = titles [getRandomIndex (titles)];
- posterTitle.innerText = randomTitle;
- var randomQuote = quotes [getRandomIndex (quotes)];
- posterQuote.innerText = randomQuote;
- currentPoster = createPoster(randomImage, randomTitle, randomQuote);
- toggleButton();
+  var randomImage = images[getRandomIndex(images)];
+  image.src = randomImage;
+  var randomTitle = titles [getRandomIndex (titles)];
+  posterTitle.innerText = randomTitle;
+  var randomQuote = quotes [getRandomIndex (quotes)];
+  posterQuote.innerText = randomQuote;
+  currentPoster = createPoster(randomImage, randomTitle, randomQuote);
+  toggleButton();
 }
 
-
+changePoster();
